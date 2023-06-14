@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "zeroshot"
+version = "0.1.0"
+authors = [
+    {name = "Zeroshot Maintainers", email = "hello@usezeroshot.com"},
+]
+description = "Image classifier with zero-shot learning."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+keywords = ["zeroshot", "classifier", "cv"]
+license = {text = ""}
+dependencies = [
+    "numpy",
+    "onnxruntime",
+    "requests",
+]
+
+[project.urls]
+Homepage = "https://github.com/moonshinelabs/zeroshot-python"
