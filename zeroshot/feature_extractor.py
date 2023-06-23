@@ -1,6 +1,8 @@
 import os
 
-import onnxruntime
+import numpy as np
+
+import onnxruntime # type: ignore 
 
 from .downloader import fetch_model
 
@@ -34,6 +36,8 @@ class FeatureExtractor(object):
         # Load the model via ONNX.
         self.model = onnxruntime.InferenceSession(self.path)
 
+    def process(self, image: np.ndarray) -> np.ndarray:
+        raise NotImplementedError
 
 class DINOV2FeatureExtractor(FeatureExtractor):
     def __init__(self, size: str = "small"):

@@ -1,17 +1,18 @@
 import json
 import re
 import urllib.request
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import numpy as np
 
 from .logistic_regression import LogisticRegression
+from .feature_extractor import DINOV2FeatureExtractor
 
 API_ENDPOINT = "https://api.wanpan.rest"
 UUID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
 
 
-def _load_from_guid(guid: str) -> None:
+def _load_from_guid(guid: str) -> dict[str, Any]:
     """Loads the model from a guid."""
     # Fetch the model from the API
     fetch_endpoint = f"{API_ENDPOINT}/get_classifier/{guid}"
@@ -20,7 +21,7 @@ def _load_from_guid(guid: str) -> None:
     return data
 
 
-def _load_from_file(path: str) -> None:
+def _load_from_file(path: str) -> dict[str, Any]:
     """Loads the model from a file."""
     with open(path, "r") as f:
         data = json.load(f)
@@ -51,9 +52,9 @@ class Classifier(object):
         self.class_list = data["class_list"]
         self.feature_extractor_name = data["feature_extractor"]
 
-        self.feature_extractor = DINOFeatureExtractor(self.feature_extractor_name)
+        self.feature_extractor = DINOV2FeatureExtractor(self.feature_extractor_name)
 
-    def __init__(self, path: Optional[str] = None, path_type: str = "infer"):
+    def __init__(self, path: str, path_type: str = "infer"):
         # Check that the path type is valid.
         possible_types = ("infer", "guid", "file")
         if path_type not in possible_types:
@@ -63,8 +64,6 @@ class Classifier(object):
 
         self.path = path
         self.class_list = []
-        self.feature_extractor = None
-        self.linear_model = None
 
         # By default we'll just infer the type of path. If it matches a UUID
         # then we'll assume it's a GUID. Since in theory there could be a GUID
@@ -73,9 +72,9 @@ class Classifier(object):
             path_type = _infer_path_type(path)
 
         if path_type == "file":
-            data = self._load_from_file(self.path)
+            data = _load_from_file(self.path)
         elif path_type == "guid":
-            data = self._load_from_guid(self.model_guid)
+            data = _load_from_guid(self.path)
         self._load_from_data(data)
 
     def predict(self, image: Union[str, np.ndarray]) -> str:
@@ -92,5 +91,5 @@ class Classifier(object):
         elif isinstance(image, np.ndarray):
             image_np = self._predict_from_image(image)
 
-        features = self.extract_features(image_np)
+        features = self.predict(image_np)
         return self.linear_model.predict(features)
