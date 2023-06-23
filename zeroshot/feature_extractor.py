@@ -1,8 +1,7 @@
 import os
 
 import numpy as np
-
-import onnxruntime # type: ignore 
+import onnxruntime  # type: ignore
 
 from .downloader import fetch_model
 
@@ -38,6 +37,7 @@ class FeatureExtractor(object):
 
     def process(self, image: np.ndarray) -> np.ndarray:
         raise NotImplementedError
+
 
 class DINOV2FeatureExtractor(FeatureExtractor):
     def __init__(self, size: str = "small"):

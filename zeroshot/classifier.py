@@ -5,8 +5,8 @@ from typing import Any, Optional, Union
 
 import numpy as np
 
-from .logistic_regression import LogisticRegression
 from .feature_extractor import DINOV2FeatureExtractor
+from .logistic_regression import LogisticRegression
 
 API_ENDPOINT = "https://api.wanpan.rest"
 UUID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
