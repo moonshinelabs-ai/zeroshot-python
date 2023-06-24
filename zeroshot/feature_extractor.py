@@ -52,7 +52,7 @@ class FeatureExtractor(object):
         image = np.expand_dims(image, axis=0)
 
         # Process the model and keep the batch dimension.
-        outputs = self.model.run(None, {'input': image})
+        outputs = self.model.run(None, {"input": image})
         return outputs[0]
 
 

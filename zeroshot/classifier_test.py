@@ -39,7 +39,7 @@ class TestYourModule(unittest.TestCase):
         file_path = "/path/to/model.json"
 
         self.assertEqual(_infer_path_type(guid), "guid")
-        self.assertEqual(_infer_path_type(file_path), "path")
+        self.assertEqual(_infer_path_type(file_path), "file")
 
 
 if __name__ == "__main__":

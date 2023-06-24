@@ -114,4 +114,3 @@ class Classifier(object):
 
         features = self.feature_extractor.process(image_np)
         return self.linear_model.predict_proba(features)[0]
-

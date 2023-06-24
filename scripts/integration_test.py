@@ -46,8 +46,11 @@ def main(args: argparse.Namespace) -> None:
 
     # Check the results.
     assert prediction_str == "a photo of a bus"
-    for expected, prob in zip([0.00330515, 0.002696, 0.98795263, 0.00604621], prediction_probs):
+    for expected, prob in zip(
+        [0.00330515, 0.002696, 0.98795263, 0.00604621], prediction_probs
+    ):
         assert np.isclose(expected, prob, atol=1e-5)
+
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
