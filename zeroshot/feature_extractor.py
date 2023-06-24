@@ -36,7 +36,24 @@ class FeatureExtractor(object):
         self.model = onnxruntime.InferenceSession(self.path)
 
     def process(self, image: np.ndarray) -> np.ndarray:
-        raise NotImplementedError
+        """Process an image into a feature vector.
+
+        Args:
+            image (np.ndarray): The image to process, in RGB format with channels last.
+
+        Returns:
+            np.ndarray: The feature vector.
+        """
+        # Rotate the dimensions so that channels is first.
+        image = np.transpose(image, (2, 0, 1))
+
+        # Make sure the image is a float32 and has a batch dimension.
+        image = image.astype(np.float32)
+        image = np.expand_dims(image, axis=0)
+
+        # Process the model and keep the batch dimension.
+        outputs = self.model.run(None, {'input': image})
+        return outputs[0]
 
 
 class DINOV2FeatureExtractor(FeatureExtractor):

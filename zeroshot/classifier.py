@@ -4,6 +4,7 @@ import urllib.request
 from typing import Any, Optional, Union
 
 import numpy as np
+from PIL import Image
 
 from .feature_extractor import DINOV2FeatureExtractor
 from .logistic_regression import LogisticRegression
@@ -34,16 +35,19 @@ def _infer_path_type(path: str) -> str:
     if uuid_pattern.match(path):
         return "guid"
     else:
-        return "path"
+        return "file"
+
+
+def _numpy_from_path(path: str) -> np.ndarray:
+    """Get a numpy array from a path."""
+    img = Image.open(path)
+    img = img.convert("RGB")
+    img_data = np.array(img)
+
+    return img_data
 
 
 class Classifier(object):
-    def _numpy_from_path(self, path: str) -> str:
-        raise NotImplementedError
-
-    def _predict_from_image(self, image: np.ndarray) -> str:
-        raise NotImplementedError
-
     def _load_from_data(self, data: dict) -> None:
         # Load the model
         self.linear_model = LogisticRegression(
@@ -77,19 +81,37 @@ class Classifier(object):
             data = _load_from_guid(self.path)
         self._load_from_data(data)
 
-    def predict(self, image: Union[str, np.ndarray]) -> str:
+    def predict(self, image: Union[str, np.ndarray]) -> int:
         """Predicts the class of an image.
 
         Args:
             image (Union[str, np.ndarray]): The image to predict, either a url or a numpy array.
 
         Returns:
-            np.ndarray: The predicted class
+            int: The predicted class
         """
         if isinstance(image, str):
-            image_np = self._numpy_from_path(image)
+            image_np = _numpy_from_path(image)
         elif isinstance(image, np.ndarray):
-            image_np = self._predict_from_image(image)
+            image_np = image
 
-        features = self.predict(image_np)
-        return self.linear_model.predict(features)
+        features = self.feature_extractor.process(image_np)
+        return self.linear_model.predict(features)[0]
+
+    def predict_proba(self, image: Union[str, np.ndarray]) -> np.ndarray:
+        """Predicts the probabilities of all classes.
+
+        Args:
+            image (Union[str, np.ndarray]): The image to predict, either a url or a numpy array.
+
+        Returns:
+            np.ndarray: The predicted class probs.
+        """
+        if isinstance(image, str):
+            image_np = _numpy_from_path(image)
+        elif isinstance(image, np.ndarray):
+            image_np = image
+
+        features = self.feature_extractor.process(image_np)
+        return self.linear_model.predict_proba(features)[0]
+

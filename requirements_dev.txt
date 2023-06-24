@@ -3,6 +3,7 @@ pytest==7.3.2
 requests-mock==1.11.0
 types-colorama==0.4.15.11
 types-docutils==0.20.0.1
+types-Pillow==9.5.0.4
 types-Pygments==2.15.0.1
 types-requests==2.31.0.1
 types-setuptools==68.0.0.0
