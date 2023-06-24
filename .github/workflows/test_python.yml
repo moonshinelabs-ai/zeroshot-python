@@ -30,4 +30,4 @@ jobs:
         if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
     - name: Test with pytest
       run: |
-        pytest
+        pytest zeroshot
