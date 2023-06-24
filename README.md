@@ -14,7 +14,7 @@ import zeroshot
 
 # Create the classifier and preprocessing function.
 classifier = zeroshot.Classifier("your model string or path")
-preprocess_fn = zeroshot.create_preprocess_fn("dino")
+preprocess_fn = zeroshot.create_preprocess_fn()
 
 # Run the model!
 prediction = classifier.predict(preprocess_fn(image))
