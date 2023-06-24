@@ -7,16 +7,14 @@ Install via pip: `pip install zeroshot`
 ## Usage
 First, go to usezeroshot.com and create a classifier. See [here]() for more instructions.
 
-Then, in Python:
+Then, in Python (`image` should be an RGB numpy array with channels last):
 
 ```python
-from zeroshot import Classifier, create_preprocess_fn
-
-image = ... # This should be an RGB numpy image with channels last.
+import zeroshot
 
 # Create the classifier and preprocessing function.
-classifier = Classifier("your model string or path")
-preprocess_fn = create_preprocess_fn("dino")
+classifier = zeroshot.Classifier("your model string or path")
+preprocess_fn = zeroshot.create_preprocess_fn("dino")
 
 # Run the model!
 prediction = classifier.predict(preprocess_fn(image))
