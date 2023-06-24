@@ -15,8 +15,7 @@ def load_image(path: str) -> np.ndarray:
     if img.shape[-1] == 4:
         img = img[:, :, :3]
 
-    # BGR to RGB
-    return img[..., ::-1]
+    return img
 
 
 def main(args: argparse.Namespace) -> None:
@@ -55,7 +54,7 @@ def main(args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
     args.add_argument("--model", default="scripts/test_files/test_model.json", type=str)
-    args.add_argument("--image", default="scripts/test_files/bus.png", type=str)
+    args.add_argument("--image", default="scripts/test_files/dog.png", type=str)
     known_args = args.parse_args()
 
     main(known_args)
