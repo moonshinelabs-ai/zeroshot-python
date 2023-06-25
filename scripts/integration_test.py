@@ -44,9 +44,9 @@ def main(args: argparse.Namespace) -> None:
             print("\033[0m", end="")
 
     # Check the results.
-    assert prediction_str == "a photo of a bus"
+    assert prediction_str == "a photo of a zoo animal"
     for expected, prob in zip(
-        [0.00330515, 0.002696, 0.98795263, 0.00604621], prediction_probs
+        [0.05371324, 0.03506953, 0.04463777, 0.86657947], prediction_probs
     ):
         assert np.isclose(expected, prob, atol=1e-5)
 
@@ -54,7 +54,7 @@ def main(args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
     args.add_argument("--model", default="scripts/test_files/test_model.json", type=str)
-    args.add_argument("--image", default="scripts/test_files/dog.png", type=str)
+    args.add_argument("--image", default="scripts/test_files/giraffe.png", type=str)
     known_args = args.parse_args()
 
     main(known_args)
