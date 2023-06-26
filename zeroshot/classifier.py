@@ -76,7 +76,7 @@ class Classifier(object):
             )
 
         self.path = path
-        self.class_list = []
+        self.classes = []
 
         # Load the preprocessor for the model.
         if preprocessor is None:
