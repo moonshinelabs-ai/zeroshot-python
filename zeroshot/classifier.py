@@ -45,7 +45,7 @@ class Classifier(object):
         self.linear_model = LogisticRegression(
             coefs=np.array(data["coefficients"]), intercept=np.array(data["intercepts"])
         )
-        self.class_list = data["class_list"]
+        self.classes = data["class_list"]
         self.feature_extractor_name = data["feature_extractor"]
 
         self.feature_extractor = DINOV2FeatureExtractor(self.feature_extractor_name)

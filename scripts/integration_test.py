@@ -13,10 +13,10 @@ def run_test(target: str, classifier: Any) -> None:
     prediction_probs = classifier.predict_proba(target)
 
     # Print the results.
-    prediction_str = classifier.class_list[prediction]
+    prediction_str = classifier.classes[prediction]
     print(f"Predicted class: {prediction_str}")
 
-    probabilities_str = zip(classifier.class_list, prediction_probs)
+    probabilities_str = zip(classifier.classes, prediction_probs)
     print(f"Predicted probabilities:")
     for class_name, probability in probabilities_str:
         if prediction_str == class_name:
