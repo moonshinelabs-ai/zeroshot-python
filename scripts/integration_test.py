@@ -1,3 +1,5 @@
+from typing import Any
+
 import argparse
 
 import numpy as np
@@ -6,29 +8,10 @@ from PIL import Image
 from zeroshot import Classifier, create_preprocess_fn
 
 
-def load_image(path: str) -> np.ndarray:
-    # Load and convert to Numpy array.
-    img_pil = Image.open(path)
-    img = np.array(img_pil)
-
-    # Remove the alpha channel if there is one.
-    if img.shape[-1] == 4:
-        img = img[:, :, :3]
-
-    return img
-
-
-def main(args: argparse.Namespace) -> None:
-    classifier = Classifier(args.model)
-    preprocess_fn = create_preprocess_fn("dino")
-
-    # Load an image into a numpy array.
-    image = load_image(args.image)
-    preprocessed_image = preprocess_fn(image)
-
+def run_test(target: str, classifier: Any) -> None:
     # Run the classifier.
-    prediction = classifier.predict(preprocessed_image)
-    prediction_probs = classifier.predict_proba(preprocessed_image)
+    prediction = classifier.predict(target)
+    prediction_probs = classifier.predict_proba(target)
 
     # Print the results.
     prediction_str = classifier.class_list[prediction]
@@ -50,6 +33,11 @@ def main(args: argparse.Namespace) -> None:
     ):
         assert np.isclose(expected, prob, atol=1e-5)
 
+
+def main(args: argparse.Namespace) -> None:
+    classifier = Classifier(args.model)
+    run_test(args.image, classifier)
+    run_test("https://moonshine-assets.s3.us-west-2.amazonaws.com/giraffe.png", classifier)
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
