@@ -6,7 +6,7 @@ import requests
 from PIL import Image
 
 
-def _from_data_or_path(input: Union[str, bytes]) -> dict[str, Any]:
+def _from_data_or_path(input: Union[str, io.BytesIO]) -> np.ndarray:
     """Loads the model from either a path or data."""
     img = Image.open(input)
     img = img.convert("RGB")
