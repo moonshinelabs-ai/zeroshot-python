@@ -1,6 +1,5 @@
-from typing import Any
-
 import argparse
+from typing import Any
 
 import numpy as np
 from PIL import Image
@@ -37,7 +36,10 @@ def run_test(target: str, classifier: Any) -> None:
 def main(args: argparse.Namespace) -> None:
     classifier = Classifier(args.model)
     run_test(args.image, classifier)
-    run_test("https://moonshine-assets.s3.us-west-2.amazonaws.com/giraffe.png", classifier)
+    run_test(
+        "https://moonshine-assets.s3.us-west-2.amazonaws.com/giraffe.png", classifier
+    )
+
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()

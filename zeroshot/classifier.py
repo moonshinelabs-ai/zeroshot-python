@@ -1,8 +1,7 @@
 import json
 import re
-from typing import Any, Optional, Union
-
 import urllib.request
+from typing import Any, Optional, Union
 
 import numpy as np
 
