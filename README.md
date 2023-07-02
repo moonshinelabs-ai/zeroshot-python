@@ -1,11 +1,14 @@
 # Zeroshot (Python)
+
 Image classification for the masses
 
 ## Installation
+
 Install via pip: `pip install zeroshot`
 
 ## Usage
-First, go to usezeroshot.com and create a classifier. See [here]() for more instructions.
+
+First, go to usezeroshot.com and create a classifier. See [here](<>) for more instructions.
 
 Then, in Python (`image` should be an RGB numpy array with channels last):
 
@@ -22,4 +25,5 @@ print(f"The image is class {prediction}")
 ```
 
 ## Read the docs
-PUT DOCS HERE.
+
+See the [docs](docs/getting_started.md) folder for some details.
