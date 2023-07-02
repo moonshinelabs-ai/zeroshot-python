@@ -20,4 +20,4 @@ To get started, visit [usezeroshot.com](https://www.usezeroshot.com).
 
 1. Once you've entered your classes, hit "Create Model". We'll show you how you can use this classifier in our libraries, or you can upload your own image to test the model.
 
-!\[example result\](images/example_result.png|width=200px)
+<img src="images/example_result.png" width="200" height="500">
