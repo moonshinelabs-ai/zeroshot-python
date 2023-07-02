@@ -3,6 +3,7 @@ from typing import Any
 
 import numpy as np
 from PIL import Image
+
 from zeroshot import Classifier, create_preprocess_fn
 
 
