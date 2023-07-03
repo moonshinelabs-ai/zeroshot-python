@@ -9,3 +9,4 @@ types-requests==2.31.0.1
 types-setuptools==68.0.0.0
 types-six==1.16.21.8
 types-urllib3==1.26.25.13
+scikit-learn==1.2.2
