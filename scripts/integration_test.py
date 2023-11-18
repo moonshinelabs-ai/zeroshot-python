@@ -7,6 +7,7 @@ import numpy as np
 import requests
 from PIL import Image
 from sklearn.linear_model import LogisticRegression  # type: ignore
+
 from zeroshot import Classifier, create_preprocess_fn
 
 

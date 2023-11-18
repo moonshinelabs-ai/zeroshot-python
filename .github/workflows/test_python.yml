@@ -27,7 +27,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
+        pip install poetry
+        poetry install
     - name: Test with pytest
       run: |
-        pytest zeroshot
+        poetry run pytest zeroshot
