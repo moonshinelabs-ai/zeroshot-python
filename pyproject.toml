@@ -38,6 +38,7 @@ requests-mock = "^1.11.0"
 [[tool.mypy.overrides]]
 module = [
     "parameterized",
-    "pillow_heif"
+    "pillow_heif",
+    "requests"
 ]
 ignore_missing_imports = true
