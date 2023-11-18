@@ -10,14 +10,14 @@ from .logistic_regression import LogisticRegression
 from .preprocessing import create_preprocess_fn
 from .utils import numpy_from_path, numpy_from_url
 
-API_ENDPOINT = "https://api.wanpan.rest"
+API_ENDPOINT = "https://dvnnfiycsg.execute-api.us-west-2.amazonaws.com/staging"
 UUID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
 
 
 def _load_from_guid(guid: str) -> dict[str, Any]:
     """Loads the model from a guid."""
     # Fetch the model from the API
-    fetch_endpoint = f"{API_ENDPOINT}/get_classifier/{guid}"
+    fetch_endpoint = f"{API_ENDPOINT}/classifiers/{guid}"
     with urllib.request.urlopen(fetch_endpoint) as response:
         data = json.load(response)
     return data

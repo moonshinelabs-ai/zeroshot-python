@@ -1,4 +1,0 @@
-numpy==1.24.3
-onnxruntime==1.15.1
-Pillow==9.5.0
-requests==2.30.0

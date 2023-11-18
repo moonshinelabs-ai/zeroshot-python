@@ -1,26 +1,43 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project]
+[tool.poetry]
 name = "zeroshot"
-version = "0.1.4"
-authors = [
-    {name = "Zeroshot Maintainers", email = "hello@usezeroshot.com"},
-]
+version = "0.1.6"
 description = "Image classifier with zero-shot learning."
-readme = "README.md"
-requires-python = ">=3.7"
-classifiers = [
-    "Programming Language :: Python :: 3",
-]
-keywords = ["zeroshot", "classifier", "cv"]
-license = {text = ""}
-dependencies = [
-    "numpy",
-    "onnxruntime",
-    "requests",
-]
+license = "MIT"
 
-[project.urls]
-Homepage = "https://github.com/moonshinelabs/zeroshot-python"
+authors = [
+    "Nate Harada <hello@usezeroshot.com>"
+]
+repository = "https://github.com/moonshinelabs/zeroshot-python"
+homepage = "https://github.com/moonshinelabs/zeroshot-python"
+
+readme = ["README.md"]
+keywords = ["zeroshot", "classifier", "cv"]
+
+# Setup dependencies.
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+numpy = "^1.26.0"
+pillow = "^10.0.1"
+types-pillow = "^10.0.0.3"
+mypy = "^1.6.0"
+onnxruntime = "^1.16.1"
+requests = "^2.31.0"
+
+[tool.poetry.group.docs]
+optional = true
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^5.1.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+parameterized = "^0.9.0"
+
+# MyPy is missing stubs, which is annoying
+scikit-learn = "^1.3.2"
+requests-mock = "^1.11.0"
+[[tool.mypy.overrides]]
+module = [
+    "parameterized",
+    "pillow_heif"
+]
+ignore_missing_imports = true
