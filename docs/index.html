@@ -1,126 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Zeroshot</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #1a1a1a;
-            color: #f5f5f5;
-            padding: 20px;
-            line-height: 1.6;
-        }
-
-        h1 {
-            font-size: 3em;
-        }
-
-        .container {
-            width: 60%;
-            margin: auto;
-            text-align: left;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .steps {
-            margin-top: 2em;
-        }
-
-        .step-box {
-            background-color: #2c2c2c;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 2em;
-        }
-
-        .button {
-            background-color: #27ae60;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #2ecc71;
-        }
-
-        a {
-            color: rgb(0, 98, 255);
-        }
-
-        a:visited {
-            color: rgb(0, 98, 255);
-        }
-
-        a.button:visited {
-            color: white;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        .code-container {
-            background-color: #2c2c2c;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .code-container pre {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>zeroshot</title>
 </head>
 <body>
-    <div class="container">
-        <div class="center">
-            <h1>Zeroshot</h1>
-            <p>Like if GPT+Images had a baby brother. Check out our <a href="https://github.com/moonshinelabs-ai/zeroshot-python">Github</a>.</p>
-        </div>
-        
-        <div class="steps">
-            <div class="step-box">
-                <h2>Step 1: Make image categories by describing them with text.</h2>
-                <div class="center">
-                    <a href="https://usezeroshot.com" class="button">Create a Classifier in 60 Seconds</a>
-                </div>
-                <p>See our <a href="https://github.com/moonshinelabs-ai/zeroshot-python/blob/main/docs/getting_started.md">getting started</a> page for more detailed instructions.</p>
-            </div>
+    <!-- <header>
+        code for menu nav will be here
+    </header> -->
 
-            <div class="step-box">
-                <h2>Step 2: Use our code to automatically categorize new images.</h2>
-                <div class="center">
-                    <div class="code-container">
-                        <pre><code class="language-python">
-model = zeroshot.Classifier(
-    "your model key here"
-)
-
-result = model.predict(url_or_ndarray)
-class_name = model.classes[result]
-
-print(f'Prediction: "{class_name}"')
-                        </code></pre>
-                    </div>
+    <main>
+        <!-- landing page hero -->
+        <div class="hero-container">
+            <div class="hero-left">
+                <p class="hero-title">Harness the power of text to add computer vision to your app in minutes</p>
+                <p class="hero-subtext">Zeroshot is an open source  tool for developers that creates image classifiers 
+                    from text descriptions</p>
+                <div class="hero-buttons">
+                    <button class="try-button"> Try it out</button>
+                    <button class="github-button">Github</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-python.min.js"></script>
+        <!-- show examples of image classification with gif -->
+        <div class="gif-container">
+            <img src="images/placeholder-image.png" class="hero-gif" />
+        </div>
+
+        <!-- how to section with setting up zeroshot -->
+        <!-- update with svg files later when have time -->
+        <div class="how-container">
+            <p class="how-to-title">How it works</p>
+            <div class="how-to-box">
+                <img src="images/model_training.png" class="how-to-icon" />
+                <p class="how-to-text">Train your model</p>
+            </div>
+            <div class="how-to-box">
+                <img src="images/download.png" class="how-to-icon" />
+                <p class="how-to-text">Install Zeroshot</p>
+            </div>
+            <div class="how-to-box">
+                <img src="images/create_new_folder.png" class="how-to-icon" />
+                <p class="how-to-text">Import Zeroshot</p>
+            </div>
+            <div class="how-to-box">
+                <img src="images/widgets.png" class="how-to-icon" />
+                <p class="how-to-text">Use with your custom model</p>
+            </div>
+            <div class="how-to-box">
+                <button class="trainmodel-button">Train your custom model ></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- <footer>
+        code for footer
+    </footer> -->
 </body>
 </html>
