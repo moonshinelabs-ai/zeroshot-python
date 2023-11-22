@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <title>zeroshot</title>
 </head>
 <body>
@@ -12,46 +15,108 @@
     </header> -->
 
     <main>
-        <!-- landing page hero -->
-        <div class="hero-container">
-            <div class="hero-left">
-                <p class="hero-title">Harness the power of text to add computer vision to your app in minutes</p>
-                <p class="hero-subtext">Zeroshot is an open source  tool for developers that creates image classifiers 
-                    from text descriptions</p>
-                <div class="hero-buttons">
-                    <button class="try-button"> Try it out</button>
-                    <button class="github-button">Github</button>
+        <div class="content">
+            <!-- landing page hero -->
+            <div class="hero-container">
+                <div class="hero-text-container">
+                    <div class="hero-left">
+                        <p class="hero-title">Harness the power of text to add computer vision to your app in minutes</p>
+                        <p class="hero-subtext">Zeroshot is an open source  tool for developers that creates image classifiers 
+                            from text descriptions</p>
+                        <div class="hero-buttons">
+                            <button class="try-button"> Try it out</button>
+                            <button class="github-button">Github</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- show examples of image classification with gif -->
+                <div class="gif-container">
+                    <img src="images/placeholder-image.png" class="hero-gif"/>
                 </div>
             </div>
-        </div>
+            <!-- feature section -->
+            <div class="features-container">
+                <div class="feature-item">
+                    <h3>Open Source</h3>
+                    <p>Zeroshot is a free, community-driven product for versatile applications.</p>
+                    <i class="fa fa-user-group feature-logo"></i>
+                </div>
+                <div class="feature-item">
+                    <h3>Low Latency</h3>
+                    <p>Fast and efficient real-time image classification. More accurate and faster than CLIP.</p>
+                    <i class="fa fa-gauge-high feature-logo"></i>
+                </div>
+                <div class="feature-item">
+                    <h3>Offline Access</h3>
+                    <p>No internet required, you can use Zeroshot and deploy from anywhere, anytime.</p>
+                    <i class="fa fa-globe feature-logo"></i>
+                </div>
+            </div>
+            <!-- video example -->
+            <div class="video-example-section">
+                <div class="video-container">
+                    <img src="images/placeholder-image.png" class="video-example" />
+                </div>
+                <div class="video-text-container">
+                    <p>Build a classifier <span class="highlight">in seconds</span>, with no labeling required.</p>
+                </div>
+            </div>
+            <!-- code example -->
+            <div class="code-example-section">
+                <div class="description-container">
+                    <p>Deploy to CPU or GPU easily with a <span class="highlight">few lines of code</span></p>
+                </div>
+                <div class="code-container">
+                    <pre>
+                        <code class="language-py"> 
+    import zeroshot
 
-        <!-- show examples of image classification with gif -->
-        <div class="gif-container">
-            <img src="images/placeholder-image.png" class="hero-gif" />
-        </div>
+    # Create the classifier and preprocessing function.
+    classifier = zeroshot.Classifier(
+        "your model string or path"
+    )
+    preprocess_fn = zeroshot.create_preprocess_fn()
 
-        <!-- how to section with setting up zeroshot -->
-        <!-- update with svg files later when have time -->
-        <div class="how-container">
-            <p class="how-to-title">How it works</p>
-            <div class="how-to-box">
-                <img src="images/model_training.png" class="how-to-icon" />
-                <p class="how-to-text">Train your model</p>
+    # Run the model! The result is the index of the prediction.
+    prediction = classifier.predict(preprocess_fn(image))
+    print(f"The image is class {prediction}")
+                        </code>
+                    </pre>
+                </div>
             </div>
-            <div class="how-to-box">
-                <img src="images/download.png" class="how-to-icon" />
-                <p class="how-to-text">Install Zeroshot</p>
+            <!-- performance example -->
+            <div class="performance-section">
+                <div class="performance-chart-container">
+                    <img src="images/placeholder-image.png" class="video-example" />
+                </div>
+                <div class="performance-text-container">
+                    <p><span class="highlight">Save costs</span> with a fast, local model that doesn't cost money each time it's run.</p>
+                </div>
             </div>
-            <div class="how-to-box">
-                <img src="images/create_new_folder.png" class="how-to-icon" />
-                <p class="how-to-text">Import Zeroshot</p>
-            </div>
-            <div class="how-to-box">
-                <img src="images/widgets.png" class="how-to-icon" />
-                <p class="how-to-text">Use with your custom model</p>
-            </div>
-            <div class="how-to-box">
-                <button class="trainmodel-button">Train your custom model ></button>
+
+            <!-- update with svg files later when have time -->
+            <div class="how-container">
+                <p class="how-to-title">How it works</p>
+                <div class="how-to-box">
+                    <img src="images/model_training.png" class="how-to-icon" />
+                    <p class="how-to-text">Train your model</p>
+                </div>
+                <div class="how-to-box">
+                    <img src="images/download.png" class="how-to-icon" />
+                    <p class="how-to-text">Install Zeroshot</p>
+                </div>
+                <div class="how-to-box">
+                    <img src="images/create_new_folder.png" class="how-to-icon" />
+                    <p class="how-to-text">Import Zeroshot</p>
+                </div>
+                <div class="how-to-box">
+                    <img src="images/widgets.png" class="how-to-icon" />
+                    <p class="how-to-text">Use with your custom model</p>
+                </div>
+                <div class="how-to-box">
+                    <button class="trainmodel-button">Train your custom model ></button>
+                </div>
             </div>
         </div>
     </main>
@@ -59,5 +124,7 @@
     <!-- <footer>
         code for footer
     </footer> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
