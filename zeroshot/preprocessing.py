@@ -7,7 +7,7 @@ from PIL import Image
 def resize(image, new_height, new_width):
     """Resize an image using PIL."""
     img = Image.fromarray(image)
-    img = img.resize((new_width, new_height))
+    img = img.resize((new_width, new_height), resample=Image.BICUBIC)
     resized_image = np.array(img)
 
     return resized_image

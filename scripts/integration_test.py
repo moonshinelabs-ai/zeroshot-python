@@ -85,7 +85,16 @@ def main(args: argparse.Namespace) -> None:
         "https://moonshine-assets.s3.us-west-2.amazonaws.com/giraffe.png", classifier
     )
 
-    classifier = Classifier(os.path.join(args.test_file_path, "test_binary.json"))
+    # Test Torch Classifier
+    classifier = Classifier(
+        os.path.join(args.test_file_path, "test_model.json"), backend="torch"
+    )
+    run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+
+
+    classifier = Classifier(
+        os.path.join(args.test_file_path, "test_binary.json"), backend="onnx"
+    )
     run_test_binary(os.path.join(args.test_file_path, "giraffe.png"), classifier)
 
 

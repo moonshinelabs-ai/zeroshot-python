@@ -48,7 +48,9 @@ class Classifier(object):
         self.classes = data["class_list"]
         self.feature_extractor_name = data["feature_extractor"]
 
-        self.feature_extractor = DINOV2FeatureExtractor(self.feature_extractor_name)
+        self.feature_extractor = DINOV2FeatureExtractor(
+            self.feature_extractor_name, backend=self.backend
+        )
 
     def _features_from_str(self, image: Union[str, np.ndarray]) -> np.ndarray:
         """Generate feature vector from a string."""
@@ -66,7 +68,11 @@ class Classifier(object):
         return self.feature_extractor.process(image_np)
 
     def __init__(
-        self, path: str, path_type: str = "infer", preprocessor: Optional[str] = "dino"
+        self,
+        path: str,
+        path_type: str = "infer",
+        preprocessor: Optional[str] = "dino",
+        backend: str = "onnx",
     ):
         # Check that the path type is valid.
         possible_types = ("infer", "guid", "file")
@@ -77,6 +83,7 @@ class Classifier(object):
 
         self.path = path
         self.classes = []
+        self.backend = backend
 
         # Load the preprocessor for the model.
         if preprocessor is None:

@@ -22,6 +22,16 @@ types-pillow = "^10.0.0.3"
 mypy = "^1.6.0"
 onnxruntime = "^1.16.1"
 requests = "^2.31.0"
+torch = {version = "^2.1.0", optional = true, source = "pytorch"}
+xformers = {version = "^0.0.22.post7", optional = true, source = "pytorch"}
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
+
+[tool.poetry.extras]
+torch = ["torch", "xformers"]
 
 [tool.poetry.group.docs]
 optional = true
