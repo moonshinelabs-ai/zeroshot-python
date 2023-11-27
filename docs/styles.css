@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
+
+body {
+    background-color: black;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: "Open Sans", sans-serif;
+    color: white;
+}
+
+.content {
+    max-width: 1160px; /* Adjust based on your layout needs */
+    margin: auto; /* Centers the container */
+}
+
+/* hero section */
+.hero-container {
+    display: flex;
+    justify-content: space-around; /* Adjust as needed */
+    align-items: center; /* This vertically aligns the children */
+}
+
+.hero-text-container {
+    flex: 1; /* Adjust the flex-grow as needed */
+    padding: 20px; /* Optional for spacing */
+    /* Other existing styles */
+}
+
+.gif-container {
+    flex: 1; /* Adjust the flex-grow as needed */
+    padding: 20px;
+    max-width: 35%;
+}
+
+.hero-gif {
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+.hero-title {
+    font-size: 42px;
+    font-weight: 700;
+    max-width: 860px;
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.hero-subtext {
+    font-family: "Oxygen Mono", monospace;
+    font-size: 22px;
+    max-width: 760px;
+    padding-bottom: 30px;
+    line-height: 160%;
+    letter-spacing: 0.24px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
+
+.try-button,
+.github-button,
+.trainmodel-button {
+    display: inline-block;
+    height: 64px;
+    width: 208px;
+    font-family: "Oxygen Mono", monospace;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border: 1.5px solid;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.try-button {
+    background-color: black;
+    color: white;
+}
+
+.github-button {
+    background-color: black;
+    color: #00ff75;
+    border-color: #00ff75;
+}
+
+/* features section */
+.features-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    margin-top: 100px; /* Space between this and the content-container */
+}
+
+.feature-item {
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 30%;
+    margin: 10px 20px; /* Space between items */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+    position: relative;
+    color: white;
+}
+
+.feature-item h3 {
+    margin-top: 2px;
+    margin-bottom: 3em; /* Newline's worth of whitespace */
+}
+
+.feature-item p {
+    font-family: "Oxygen Mono", monospace;
+    margin-bottom: 2.5em;
+}
+
+.feature-logo {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 28px;
+    color: white;
+}
+
+/* performance section */
+.performance-section {
+    display: flex;
+    padding: 20px;
+    margin-top: 20px; /* Adjust as needed */
+    align-items: center;
+}
+
+.performance-text-container {
+    flex-basis: 30%;
+    margin-right: 120px;
+    margin-left: 40px;
+    font-size: 26px;
+    color: gray;
+    font-weight: 700;
+    max-width: 860px;
+}
+
+.performance-chart-container {
+    flex-basis: 70%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* video section */
+.video-example-section {
+    display: flex;
+    padding: 20px;
+    margin-top: 20px; /* Adjust as needed */
+    align-items: center;
+}
+
+.video-text-container {
+    flex-basis: 30%;
+    margin-right: 120px;
+    margin-left: 40px;
+    font-size: 26px;
+    color: gray;
+    font-weight: 700;
+    max-width: 860px;
+}
+
+.video-container {
+    flex-basis: 70%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.video-example {
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+/* code example section */
+.code-example-section {
+    display: flex;
+    padding: 20px;
+    margin-top: 20px; /* Adjust as needed */
+    align-items: center;
+}
+
+.description-container {
+    flex-basis: 30%;
+    margin-right: 120px;
+    margin-left: 40px;
+    font-size: 26px;
+    color: gray;
+    font-weight: 700;
+    max-width: 860px;
+}
+
+.code-container {
+    flex-basis: 70%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.highlight {
+    color: white;
+}
+
+pre {
+    max-width: 100%;
+    margin-left: 3em;
+    overflow-x: auto; /* Allows scrolling for long code lines */
+    border-radius: 8px;
+}
+
+/* how to section */
+.how-container {
+    background-color: #111111;
+    width: 1160px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: space-between;
+    padding: 30px 0px 30px 0px;
+    margin: 80px;
+}
+
+.how-to-title {
+    font-size: 36px;
+    font-weight: 700;
+    padding-bottom: 30px;
+}
+
+.how-to-box {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 35%;
+    padding-bottom: 30px;
+}
+
+.how-to-icon {
+    height: 50px;
+    width: 50px;
+}
+
+.how-to-text {
+    font-family: "Oxygen Mono", monospace;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.trainmodel-button {
+    background-color: #111111;
+    color: #00ff75;
+    border-color: #00ff75;
+    font-size: 12px;
+    width: 260px;
+    height: 60px;
+}
