@@ -80,21 +80,26 @@ def run_test_binary(target: str, classifier: Any) -> None:
 
 def main(args: argparse.Namespace) -> None:
     classifier = Classifier(os.path.join(args.test_file_path, "test_model.json"))
+    # Test loading from local file.
     run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+    # Test loading from url.
     run_test(
         "https://moonshine-assets.s3.us-west-2.amazonaws.com/giraffe.png", classifier
     )
-
-    # Test Torch Classifier
-    classifier = Classifier(
-        os.path.join(args.test_file_path, "test_model.json"), backend="torch"
-    )
     run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
-
+    # Test ONNX backend.
     classifier = Classifier(
         os.path.join(args.test_file_path, "test_binary.json"), backend="onnx"
     )
     run_test_binary(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+    # Test Torch backend if it's installed.
+    try:
+        classifier = Classifier(
+            os.path.join(args.test_file_path, "test_model.json"), backend="torch"
+        )
+        run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+    except ImportError:
+        print("Torch not installed, skipping torch test.")
 
 
 if __name__ == "__main__":
