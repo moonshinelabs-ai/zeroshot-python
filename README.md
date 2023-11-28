@@ -40,4 +40,4 @@ See the [docs](https://github.com/moonshinelabs-ai/zeroshot-docs/blob/main/gener
 
 ## Get help
 
-If you need help or just want to chat, join the (Moonshine Labs Slack server)[https://join.slack.com/t/moonshinecommunity/shared_invite/zt-1rg1vnvmt-pleUR7TducaDiAhcmnqAQQ] and come hang out in the #zeroshot channel.
+If you need help or just want to chat, join the [Moonshine Labs Slack server](https://join.slack.com/t/moonshinecommunity/shared_invite/zt-1rg1vnvmt-pleUR7TducaDiAhcmnqAQQ) and come hang out in the #zeroshot channel.
