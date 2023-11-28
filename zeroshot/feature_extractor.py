@@ -17,7 +17,7 @@ _SUPPORTED_BACKENDS = ["onnx", "torch"]
 
 
 class FeatureExtractor(object):
-    def _get_onnx_model(self, name: str) -> str:
+    def _get_onnx_model(self, name: str):
         import onnxruntime
 
         # If the model is a file path, just use that model. Otherwise download it.
@@ -39,7 +39,7 @@ class FeatureExtractor(object):
         except:
             self.model = onnxruntime.InferenceSession(self.path)
 
-    def _get_torch_model(self, name: str) -> str:
+    def _get_torch_model(self, name: str):
         import torch
 
         newname = _MODEL_TO_TORCH[name]
@@ -87,7 +87,7 @@ class FeatureExtractor(object):
             name (str): The name of the model to use, or a path directly to the model.
         """
         self.name = name
-        self.path = None
+        self.path = ""
         self.device = "cpu"
         self.backend = backend
 

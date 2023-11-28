@@ -49,6 +49,7 @@ requests-mock = "^1.11.0"
 module = [
     "parameterized",
     "pillow_heif",
-    "requests"
+    "requests",
+    "onnxruntime"
 ]
 ignore_missing_imports = true
