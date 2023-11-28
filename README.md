@@ -26,4 +26,4 @@ print(f"The image is class {prediction}")
 
 ## Read the docs
 
-See the [docs](docs/getting_started.md) folder for some details.
+See the [docs](https://github.com/moonshinelabs-ai/zeroshot-docs/blob/main/general/getting_started.md) folder for some details.
