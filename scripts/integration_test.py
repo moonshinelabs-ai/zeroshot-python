@@ -91,7 +91,6 @@ def main(args: argparse.Namespace) -> None:
     )
     run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
 
-
     classifier = Classifier(
         os.path.join(args.test_file_path, "test_binary.json"), backend="onnx"
     )
