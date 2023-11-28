@@ -14,7 +14,7 @@ jobs:
       - name: Install mypy
         run: pip install mypy
       - name: Install requirements
-        run: poetry install
+        run: poetry install -E torch
       - name: Run mypy
         run: poetry run mypy zeroshot
         env:
