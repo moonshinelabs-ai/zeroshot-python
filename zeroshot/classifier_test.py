@@ -7,7 +7,7 @@ from unittest.mock import mock_open, patch
 from .classifier import _infer_path_type, _load_from_file, _load_from_guid
 
 
-class TestYourModule(unittest.TestCase):
+class TestClassifier(unittest.TestCase):
     @patch("urllib.request.urlopen")
     def test_load_from_guid(self, mock_urlopen):
         # Mock API response

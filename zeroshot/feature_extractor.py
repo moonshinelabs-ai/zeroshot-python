@@ -48,11 +48,16 @@ class FeatureExtractor(object):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = torch.hub.load("facebookresearch/dinov2", newname).to(self.device)
 
-    def _run_onnx_model(self, image: np.ndarray) -> np.ndarray:
+    def _run_onnx_model(
+        self, image: np.ndarray, feature_map: bool = False
+    ) -> np.ndarray:
         if image.ndim != 3:
             raise ValueError(
                 "Image must be 3-dimensional, batch not supported with ONNX."
             )
+
+        if feature_map:
+            raise NotImplementedError("Feature map not supported with ONNX.")
 
         # Rotate the dimensions so that channels is first.
         image = np.transpose(image, (2, 0, 1))
@@ -65,7 +70,7 @@ class FeatureExtractor(object):
         outputs = self.model.run(None, {"input": image})
         return outputs[0]
 
-    def _run_torch_model(self, image: np.ndarray) -> np.ndarray:
+    def _run_torch_model(self, image: np.ndarray, feature_map=False) -> np.ndarray:
         import torch
 
         if image.ndim == 3:
@@ -73,14 +78,20 @@ class FeatureExtractor(object):
 
         # Make sure the channels is first
         image = np.transpose(image, (0, 3, 1, 2))
+        _, _, h, w = image.shape
+        patches_h, patches_w = h // 14, w // 14
 
         # Convert to a torch tensor.
         tensor = torch.from_numpy(image).float().to(self.device)
 
         # Run the model
         with torch.no_grad():
-            outputs = self.model(tensor).cpu().numpy()
-        return outputs
+            if feature_map:
+                intermediates = self.model.get_intermediate_layers(tensor, n=1)[0]
+                np_intermediates = intermediates.cpu().numpy()
+                return np.reshape(np_intermediates, (1, patches_h, patches_w, -1))
+            else:
+                return self.model(tensor).cpu().numpy()
 
     def __init__(self, name: str, backend="onnx"):
         """Create a feature extractor.
@@ -103,7 +114,7 @@ class FeatureExtractor(object):
         else:
             raise ValueError(f"Backend {self.backend} not supported.")
 
-    def process(self, image: np.ndarray) -> np.ndarray:
+    def process(self, image: np.ndarray, feature_map: bool = False) -> np.ndarray:
         """Process an image into a feature vector.
 
         Args:
@@ -113,9 +124,9 @@ class FeatureExtractor(object):
             np.ndarray: The feature vector.
         """
         if self.backend == "onnx":
-            return self._run_onnx_model(image)
+            return self._run_onnx_model(image, feature_map=feature_map)
         elif self.backend == "torch":
-            return self._run_torch_model(image)
+            return self._run_torch_model(image, feature_map=feature_map)
         else:
             raise ValueError(f"Backend {self.backend} not supported.")
 
