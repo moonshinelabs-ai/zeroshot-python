@@ -34,6 +34,11 @@ You can also download the classifier and save it somewhere locally so you don't 
 classifier = zeroshot.Classifier("/home/user/path/to/model.json")
 ```
 
+## Additional Tips
+
+* To use a GPU, install the torch backend with `pip install zeroshot[torch]`
+* If you are hitting issues with torch trying to run on CPU, try disabling XFormers by setting XFORMERS_DISABLED=1 in your ENV varaibles.
+
 ## Read the docs
 
 See the [docs](https://github.com/moonshinelabs-ai/zeroshot-docs/blob/main/general/getting_started.md) folder for some details on how things work under the hood.
