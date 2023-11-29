@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zeroshot"
-version = "0.1.9"
+version = "0.1.10"
 description = "Image classifier with zero-shot learning."
 license = "MIT"
 
