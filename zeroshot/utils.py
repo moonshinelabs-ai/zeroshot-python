@@ -1,12 +1,13 @@
 import io
-from typing import Any, Optional, Union
+import contextlib
+import sys
 
 import numpy as np
 import requests
 from PIL import Image
 
 
-def _from_data_or_path(input: Union[str, io.BytesIO]) -> np.ndarray:
+def _from_data_or_path(input: str | io.BytesIO) -> np.ndarray:
     """Loads the model from either a path or data."""
     img = Image.open(input)
     img = img.convert("RGB")
@@ -14,6 +15,13 @@ def _from_data_or_path(input: Union[str, io.BytesIO]) -> np.ndarray:
 
     return img_data
 
+
+@contextlib.contextmanager
+def nostderr():
+    save_stdout = sys.stderr
+    sys.stderr = io.BytesIO()
+    yield
+    sys.stderr = save_stdout
 
 def numpy_from_path(path: str) -> np.ndarray:
     """Get a numpy array from a path."""

@@ -3,6 +3,7 @@ import os
 import numpy as np
 
 from .downloader import fetch_model
+from .utils import nostderr
 
 _MODELS_ONNX = {
     "dinov2_small": "https://zeroshot-prod-models.s3.us-west-2.amazonaws.com/dinov2_onnx/dinov2_small.onnx",
@@ -33,9 +34,10 @@ class FeatureExtractor(object):
 
         # Load the model via ONNX.
         try:
-            self.model = onnxruntime.InferenceSession(
-                self.path, providers=["CUDAExecutionProvider"]
-            )
+            with nostderr():
+                self.model = onnxruntime.InferenceSession(
+                    self.path, providers=["CUDAExecutionProvider"]
+                )
         except:
             self.model = onnxruntime.InferenceSession(self.path)
 
