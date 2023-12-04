@@ -1,10 +1,12 @@
 import json
 import re
+import os
 import unittest
 import urllib.request
 from unittest.mock import mock_open, patch
+import numpy as np
 
-from .classifier import _infer_path_type, _load_from_file, _load_from_guid
+from .classifier import _infer_path_type, _load_from_file, _load_from_guid, Classifier
 
 
 class TestYourModule(unittest.TestCase):
@@ -40,6 +42,35 @@ class TestYourModule(unittest.TestCase):
 
         self.assertEqual(_infer_path_type(guid), "guid")
         self.assertEqual(_infer_path_type(file_path), "file")
+
+    def test_load_classifier_from_file_onnx_backend(self):
+        model_path = "test_files/test_model.json"
+        # Get the full path
+        full_path = os.path.join(os.path.dirname(__file__), model_path)
+
+        classifier = Classifier(full_path, backend="onnx")
+
+        # Feed a random image to the classifier (0-255)
+        np.random.seed(0)
+        rand_image = np.random.randint(0, 255, size=(224, 224, 3), dtype=np.uint8)
+        result = classifier.predict(rand_image)
+
+        self.assertEqual(result, 1)
+
+    def test_load_classifier_from_file_torch_backend(self):
+        model_path = "test_files/test_model.json"
+        # Get the full path
+        full_path = os.path.join(os.path.dirname(__file__), model_path)
+
+        classifier = Classifier(full_path, backend="torch")
+
+        # Feed a random image to the classifier (0-255)
+        np.random.seed(0)
+        rand_image = np.random.randint(0, 255, size=(224, 224, 3), dtype=np.uint8)
+        result = classifier.predict(rand_image)
+
+        self.assertEqual(result, 1)
+
 
 
 if __name__ == "__main__":

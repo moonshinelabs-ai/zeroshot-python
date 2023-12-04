@@ -6,11 +6,16 @@ from .downloader import fetch_model
 
 _MODELS_ONNX = {
     "dinov2_small": "https://zeroshot-prod-models.s3.us-west-2.amazonaws.com/dinov2_onnx/dinov2_small.onnx",
-    "dinov2_base": "",
+    "dinov2_small_v2": "https://zeroshot-prod-models.s3.us-west-2.amazonaws.com/dinov2_onnx/dinov2_small_v2.onnx",
+    "dinov2_medium_v2": "https://zeroshot-prod-models.s3.us-west-2.amazonaws.com/dinov2_onnx/dinov2_medium.onnx",
+    "dinov2_large_v2": "https://zeroshot-prod-models.s3.us-west-2.amazonaws.com/dinov2_onnx/dinov2_large.onnx",
 }
 
-_MODEL_TO_TORCH = {
+_MODELS_TORCH = {
     "dinov2_small": "dinov2_vits14",
+    "dinov2_small_v2": "dinov2_vits14",
+    "dinov2_medium_v2": "dinov2_vitb14",
+    "dinov2_large_v2": "dinov2_vitl14",
 }
 
 _SUPPORTED_BACKENDS = ["onnx", "torch"]
@@ -42,7 +47,7 @@ class FeatureExtractor(object):
     def _get_torch_model(self, name: str):
         import torch
 
-        newname = _MODEL_TO_TORCH[name]
+        newname = _MODELS_TORCH[name]
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = torch.hub.load("facebookresearch/dinov2", newname).to(self.device)
 
