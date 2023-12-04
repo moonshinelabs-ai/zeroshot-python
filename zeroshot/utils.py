@@ -1,18 +1,38 @@
+import contextlib
 import io
-from typing import Any, Optional, Union
+import sys
 
 import numpy as np
 import requests
 from PIL import Image
 
 
-def _from_data_or_path(input: Union[str, io.BytesIO]) -> np.ndarray:
+def _from_data_or_path(input: str | io.BytesIO) -> np.ndarray:
     """Loads the model from either a path or data."""
     img = Image.open(input)
     img = img.convert("RGB")
     img_data = np.array(img)
 
     return img_data
+
+
+class nostderr:
+    def __init__(self):
+        self._original_stderr = None
+
+    def __enter__(self):
+        import os
+
+        # Save the original stderr so it can be restored later
+        self._original_stderr = sys.stderr
+
+        # Redirect stderr to null device to suppress output
+        sys.stderr = open(os.devnull, "w")
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        # Close the redirected stderr and restore the original one
+        sys.stderr.close()
+        sys.stderr = self._original_stderr
 
 
 def numpy_from_path(path: str) -> np.ndarray:

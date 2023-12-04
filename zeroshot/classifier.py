@@ -1,7 +1,7 @@
 import json
 import re
 import urllib.request
-from typing import Any, Optional, Union
+from typing import Any
 
 import numpy as np
 
@@ -52,7 +52,7 @@ class Classifier(object):
             self.feature_extractor_name, backend=self.backend
         )
 
-    def _features_from_str(self, image: Union[str, np.ndarray]) -> np.ndarray:
+    def _image_from_str(self, image: str | np.ndarray) -> np.ndarray:
         """Generate feature vector from a string."""
         if isinstance(image, str) and image.startswith("http"):
             image_np = numpy_from_url(image)
@@ -65,13 +65,13 @@ class Classifier(object):
         if self.preprocess_fn is not None:
             image_np = self.preprocess_fn(image_np)
 
-        return self.feature_extractor.process(image_np)
+        return image_np
 
     def __init__(
         self,
         path: str,
         path_type: str = "infer",
-        preprocessor: Optional[str] = "dino",
+        preprocessor: str | None = "dino",
         backend: str = "onnx",
     ):
         # Check that the path type is valid.
@@ -103,26 +103,49 @@ class Classifier(object):
             data = _load_from_guid(self.path)
         self._load_from_data(data)
 
-    def predict(self, image: Union[str, np.ndarray]) -> int:
+    def predict(self, image: str | np.ndarray) -> int:
         """Predicts the class of an image.
 
         Args:
-            image (Union[str, np.ndarray]): The image to predict, either a url or a numpy array.
+            image: The image to predict, either a url or a numpy array.
 
         Returns:
-            int: The predicted class
+            The predicted class
         """
-        features = self._features_from_str(image)
+        image = self._image_from_str(image)
+        features = self.feature_extractor.process(image)
         return self.linear_model.predict(features)[0]
 
-    def predict_proba(self, image: Union[str, np.ndarray]) -> np.ndarray:
+    def predict_patches(self, image: str | np.ndarray) -> np.ndarray:
+        """Predicts the class of an image for each patch
+
+        Args:
+            image: The image to predict, either a url or a numpy array.
+
+        Returns:
+            The predicted class
+        """
+        image = self._image_from_str(image)
+        features = self.feature_extractor.process(image, feature_map=True)
+
+        # Predict a class for each patch.
+        predictions = np.zeros((features.shape[1], features.shape[2]))
+        for i in range(features.shape[1]):
+            for j in range(features.shape[2]):
+                patch = features[:, i, j, :]
+                predictions[i, j] = self.linear_model.predict(patch)
+
+        return predictions
+
+    def predict_proba(self, image: str | np.ndarray) -> np.ndarray:
         """Predicts the probabilities of all classes.
 
         Args:
-            image (Union[str, np.ndarray]): The image to predict, either a url or a numpy array.
+            image: The image to predict, either a url or a numpy array.
 
         Returns:
-            np.ndarray: The predicted class probs.
+            The predicted class probs.
         """
-        features = self._features_from_str(image)
+        image = self._image_from_str(image)
+        features = self.feature_extractor.process(image)
         return self.linear_model.predict_proba(features)[0]

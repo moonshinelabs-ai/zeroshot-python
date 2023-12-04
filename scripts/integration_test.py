@@ -40,6 +40,13 @@ def golden_test(target: str, classifier: Any) -> np.ndarray:
     return sklearn_model.predict_proba(features)
 
 
+def run_test_intermediates(target: str, classifier: Any) -> None:
+    # Run the classifier.
+    prediction = classifier.predict_patches(target)
+
+    assert int(np.sum(prediction)) == 173
+
+
 def run_test(target: str, classifier: Any) -> None:
     # Run the classifier.
     prediction = classifier.predict(target)
@@ -64,6 +71,8 @@ def run_test(target: str, classifier: Any) -> None:
     for expected, prob in zip(expected_probs, prediction_probs):
         assert np.isclose(expected, prob, atol=1e-5)
 
+    print("Test complete for normal test.")
+
 
 def run_test_binary(target: str, classifier: Any) -> None:
     # Run the classifier.
@@ -77,27 +86,54 @@ def run_test_binary(target: str, classifier: Any) -> None:
     for expected, prob in zip(comparison, prediction_probs):
         assert np.isclose(expected, prob, atol=1e-5)
 
+    print(f"Test complete for binary test.")
+
 
 def main(args: argparse.Namespace) -> None:
-    classifier = Classifier(os.path.join(args.test_file_path, "test_model.json"))
     # Test loading from local file.
+    classifier = Classifier(os.path.join(args.test_file_path, "test_model.json"))
     run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+
     # Test loading from url.
     run_test(
         "https://moonshine-assets.s3.us-west-2.amazonaws.com/giraffe.png", classifier
     )
     run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+
     # Test ONNX backend.
+    print("ONNX backend test.")
     classifier = Classifier(
         os.path.join(args.test_file_path, "test_binary.json"), backend="onnx"
     )
     run_test_binary(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+
+    # Test ONNX intermediates.
+    print("ONNX intermediates test.")
+    classifier = Classifier(
+        os.path.join(args.test_file_path, "test_patches.json"), backend="onnx"
+    )
+    try:
+        run_test_intermediates(
+            os.path.join(args.test_file_path, "giraffe.png"), classifier
+        )
+    except NotImplementedError:
+        print("Correctly raised NotImplementedError.")
+
     # Test Torch backend if it's installed.
     try:
+        print("Torch backend test.")
         classifier = Classifier(
             os.path.join(args.test_file_path, "test_model.json"), backend="torch"
         )
         run_test(os.path.join(args.test_file_path, "giraffe.png"), classifier)
+
+        print("Torch intermediates test.")
+        classifier = Classifier(
+            os.path.join(args.test_file_path, "test_patches.json"), backend="torch"
+        )
+        run_test_intermediates(
+            os.path.join(args.test_file_path, "giraffe.png"), classifier
+        )
     except ImportError:
         print("Torch not installed, skipping torch test.")
 
