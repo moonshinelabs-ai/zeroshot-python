@@ -155,5 +155,8 @@ class DINOV2FeatureExtractor(FeatureExtractor):
         Args:
             size (str): The size of the model to use, either 'small' or 'base'.
         """
-        name = f"dinov2_{size}"
+        if size == "small":
+            name = "dinov2_small"
+        else:
+            name = size
         super().__init__(name, backend=backend)

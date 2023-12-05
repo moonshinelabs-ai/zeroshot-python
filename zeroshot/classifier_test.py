@@ -1,12 +1,18 @@
 import json
-import re
 import os
+import re
 import unittest
 import urllib.request
 from unittest.mock import mock_open, patch
+
 import numpy as np
 
-from .classifier import _infer_path_type, _load_from_file, _load_from_guid, Classifier
+from .classifier import (Classifier, _infer_path_type, _load_from_file,
+                         _load_from_guid)
+
+# Force CPU only for this test
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["XFORMERS_DISABLED"] = "1"
 
 
 class TestClassifier(unittest.TestCase):
@@ -70,7 +76,6 @@ class TestClassifier(unittest.TestCase):
         result = classifier.predict(rand_image)
 
         self.assertEqual(result, 1)
-
 
 
 if __name__ == "__main__":
