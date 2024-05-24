@@ -10,7 +10,7 @@ from .logistic_regression import LogisticRegression
 from .preprocessing import create_preprocess_fn
 from .utils import numpy_from_path, numpy_from_url
 
-API_ENDPOINT = "https://dvnnfiycsg.execute-api.us-west-2.amazonaws.com/staging"
+API_ENDPOINT = "https://luq6q8jul2.execute-api.us-west-2.amazonaws.com/staging"
 UUID_PATTERN = r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
 
 
